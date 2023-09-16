@@ -84,7 +84,14 @@ class _HomePage extends State<HomePage> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => CategoryPage(),
+                  builder: (context) => CategoryPage(
+                    category: "9",
+                    categoryImageTitle: "assets/images/General Quiz.png",
+                    categoryImageBackground:
+                        "assets/images/General_opacity_background.png",
+                    categoryBackgroundColor:
+                        const Color.fromARGB(255, 171, 246, 168),
+                  ),
                 ),
               );
             },
@@ -92,7 +99,7 @@ class _HomePage extends State<HomePage> {
               key: UniqueKey(),
               image: "assets/images/general.png",
               title: "General Knowledge",
-              backgroundColor: Color.fromARGB(255, 171, 246, 168),
+              backgroundColor: const Color.fromARGB(255, 171, 246, 168),
             ),
           ),
           //--------------------------------------- History -----------------------------
@@ -101,7 +108,14 @@ class _HomePage extends State<HomePage> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => CategoryPage(),
+                  builder: (context) => CategoryPage(
+                    category: "23",
+                    categoryImageTitle: "assets/images/History Quiz.png",
+                    categoryImageBackground:
+                        "assets/images/History_opacity_background.png",
+                    categoryBackgroundColor:
+                        const Color.fromARGB(255, 235, 243, 118),
+                  ),
                 ),
               );
             },
@@ -109,7 +123,7 @@ class _HomePage extends State<HomePage> {
               key: UniqueKey(),
               image: "assets/images/history.png",
               title: "History",
-              backgroundColor: Color.fromARGB(255, 235, 243, 118),
+              backgroundColor: const Color.fromARGB(255, 235, 243, 118),
             ),
           ),
           //--------------------------------------- Computer Science -----------------------------
@@ -118,7 +132,14 @@ class _HomePage extends State<HomePage> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => CategoryPage(),
+                  builder: (context) => CategoryPage(
+                    category: "23",
+                    categoryImageTitle: "assets/images/Computer Quiz.png",
+                    categoryImageBackground:
+                        "assets/images/computer_opacity_background.png",
+                    categoryBackgroundColor:
+                        const Color.fromARGB(255, 101, 140, 232),
+                  ),
                 ),
               );
             },
@@ -126,7 +147,7 @@ class _HomePage extends State<HomePage> {
               key: UniqueKey(),
               image: "assets/images/computer science.png",
               title: "Computer Science",
-              backgroundColor: Color.fromARGB(255, 101, 140, 232),
+              backgroundColor: const Color.fromARGB(255, 101, 140, 232),
             ),
           ),
           //--------------------------------------- Science -----------------------------
@@ -135,7 +156,14 @@ class _HomePage extends State<HomePage> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => CategoryPage(),
+                  builder: (context) => CategoryPage(
+                    category: "23",
+                    categoryImageTitle: "assets/images/SainsQuiz.png",
+                    categoryImageBackground:
+                        "assets/images/Science_Background.png",
+                    categoryBackgroundColor:
+                        const Color.fromARGB(255, 134, 238, 234),
+                  ),
                 ),
               );
             },
@@ -143,7 +171,7 @@ class _HomePage extends State<HomePage> {
               key: UniqueKey(),
               image: "assets/images/science.png",
               title: "Science",
-              backgroundColor: Color.fromARGB(255, 134, 238, 234),
+              backgroundColor: const Color.fromARGB(255, 134, 238, 234),
             ),
           ),
 
@@ -153,7 +181,14 @@ class _HomePage extends State<HomePage> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => CategoryPage(),
+                  builder: (context) => CategoryPage(
+                    category: "23",
+                    categoryImageTitle: "assets/images/Science Gadget Quiz.png",
+                    categoryImageBackground:
+                        "assets/images/science_gadget_opacity_background.png",
+                    categoryBackgroundColor:
+                        const Color.fromARGB(255, 194, 117, 242),
+                  ),
                 ),
               );
             },
@@ -161,16 +196,23 @@ class _HomePage extends State<HomePage> {
               key: UniqueKey(),
               image: "assets/images/science gadget.png",
               title: "Science Gadget",
-              backgroundColor: Color.fromARGB(255, 194, 117, 242),
+              backgroundColor: const Color.fromARGB(255, 194, 117, 242),
             ),
           ),
-          //--------------------------------------- Science Gadget-----------------------------
+          //--------------------------------------- Math -----------------------------
           GestureDetector(
             onTap: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => CategoryPage(),
+                  builder: (context) => CategoryPage(
+                    category: "23",
+                    categoryImageTitle: "assets/images/Math Quiz.png",
+                    categoryImageBackground:
+                        "assets/images/math_opacity_background.png",
+                    categoryBackgroundColor:
+                        const Color.fromARGB(255, 238, 185, 61),
+                  ),
                 ),
               );
             },
@@ -178,7 +220,7 @@ class _HomePage extends State<HomePage> {
               key: UniqueKey(),
               image: "assets/images/math.png",
               title: "Mathematics",
-              backgroundColor: Color.fromARGB(255, 238, 185, 61),
+              backgroundColor: const Color.fromARGB(255, 238, 185, 61),
             ),
           ),
         ],

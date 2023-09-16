@@ -1,7 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:quizzy_mind/pages/game_page.dart';
 
+import '../pages/utils/animation/polar_bear_animation.dart';
+
 class CategoryPage extends StatefulWidget {
+  final String? categoryImageTitle;
+  final String? categoryImageBackground;
+  final Color? categoryBackgroundColor;
+  final String? category;
+
+  CategoryPage({
+    required this.categoryImageTitle,
+    required this.categoryImageBackground,
+    required this.categoryBackgroundColor,
+    required this.category,
+  });
+
   @override
   State<StatefulWidget> createState() {
     return _CategoryPageState();
@@ -13,53 +27,82 @@ class _CategoryPageState extends State<CategoryPage> {
   double _currentDifficultyLevel = 0;
   final List<String> _difficultyTexts = ["Easy", "Medium", "Hard"];
 
+  String? categoryImageTitle;
+  String? categoryImageBackground;
+  Color? categoryBackgroundColor;
+  String? category;
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialize the state variables with values from the widget.
+    categoryImageTitle = widget.categoryImageTitle;
+    categoryImageBackground = widget.categoryImageBackground;
+    categoryBackgroundColor = widget.categoryBackgroundColor;
+    category = widget.category;
+  }
+
   @override
   Widget build(BuildContext context) {
     _deviceHeight = MediaQuery.of(context).size.height;
     _deviceWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      body: SafeArea(
-        child: Container(
-          padding: EdgeInsets.symmetric(horizontal: _deviceWidth! * 0.10),
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                _appTitle(),
-                _difficultySlider(),
-                _startGameButton(),
-              ],
+      body: Stack(
+        children: [
+          Container(
+            height: _deviceHeight! * .40,
+            decoration: BoxDecoration(
+              color: categoryBackgroundColor,
+              image: DecorationImage(
+                fit: BoxFit.cover,
+                image: AssetImage(categoryImageBackground!),
+                opacity: 1.8,
+              ),
             ),
           ),
-        ),
+          SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Column(
+                children: [
+                  const SizedBox(
+                    height: 42,
+                  ),
+                  PolarBearWidget(),
+                  _quizTitle(),
+                  _difficultySlider(),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  _startGameButton(),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
 
 //fucntion for title
-  Widget _appTitle() {
+  Widget _quizTitle() {
     return Column(
       children: [
         Container(
           height: _deviceHeight! * 0.200,
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             image: DecorationImage(
               fit: BoxFit.contain,
-              image: AssetImage("assets/images/History_cave.png"),
+              image: AssetImage(categoryImageTitle!),
             ),
           ),
-        ),
-        const Text(
-          "History Quiz",
-          style: TextStyle(
-              color: Colors.white, fontSize: 40, fontWeight: FontWeight.w500),
         ),
         Text(
           _difficultyTexts[_currentDifficultyLevel.toInt()],
           style: const TextStyle(
-              color: Colors.white, fontSize: 30, fontWeight: FontWeight.w500),
+              color: Color.fromARGB(255, 81, 54, 54),
+              fontSize: 30,
+              fontWeight: FontWeight.w500),
         ),
       ],
     );

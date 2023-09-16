@@ -26,11 +26,10 @@ apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
-<<<<<<< HEAD
-    namespace "com.example.quiz_app"
-=======
+
+
     namespace "com.example.quizzy_mind"
->>>>>>> origin/master
+
     compileSdkVersion flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
 
@@ -49,11 +48,10 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-<<<<<<< HEAD
-        applicationId "com.example.quiz_app"
-=======
+
+
         applicationId "com.example.quizzy_mind"
->>>>>>> origin/master
+
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
         minSdkVersion flutter.minSdkVersion

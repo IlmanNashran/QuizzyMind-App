@@ -1,8 +1,6 @@
-<<<<<<< HEAD
-# quiz_app
-=======
+
 # quizzy_mind
->>>>>>> origin/master
+
 
 A new Flutter project.
 
