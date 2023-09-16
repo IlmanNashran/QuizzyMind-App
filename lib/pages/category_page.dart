@@ -70,9 +70,12 @@ class _CategoryPageState extends State<CategoryPage> {
                   ),
                   PolarBearWidget(),
                   _quizTitle(),
-                  _difficultySlider(),
                   const SizedBox(
                     height: 30,
+                  ),
+                  _difficultySlider(),
+                  const SizedBox(
+                    height: 25,
                   ),
                   _startGameButton(),
                 ],
@@ -97,12 +100,31 @@ class _CategoryPageState extends State<CategoryPage> {
             ),
           ),
         ),
-        Text(
-          _difficultyTexts[_currentDifficultyLevel.toInt()],
-          style: const TextStyle(
-              color: Color.fromARGB(255, 81, 54, 54),
-              fontSize: 30,
-              fontWeight: FontWeight.w500),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            const Text(
+              "Level :",
+              style: TextStyle(
+                color: Color.fromARGB(255, 81, 54, 54),
+                fontSize: 30,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            const SizedBox(
+              width: 15,
+            ),
+            Text(
+              _difficultyTexts[_currentDifficultyLevel.toInt()],
+              style: const TextStyle(
+                color: Color.fromARGB(255, 81, 54, 54),
+                fontSize: 30,
+                fontWeight: FontWeight.w900,
+              ),
+            ),
+          ],
         ),
       ],
     );
@@ -115,6 +137,7 @@ class _CategoryPageState extends State<CategoryPage> {
       min: 0,
       max: 2,
       divisions: 2,
+      activeColor: Color.fromARGB(255, 102, 50, 55),
       value: _currentDifficultyLevel,
       onChanged: (_value) {
         setState(
@@ -142,9 +165,12 @@ class _CategoryPageState extends State<CategoryPage> {
           ),
         );
       },
-      color: Colors.blue,
-      minWidth: _deviceWidth! * 0.80,
-      height: _deviceHeight! * 0.10,
+      color: const Color.fromARGB(255, 155, 182, 205),
+      minWidth: _deviceWidth! * 0.40,
+      height: _deviceHeight! * 0.09,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20.0), // Adjust the value as needed
+      ),
       child: const Text(
         "Start",
         style: TextStyle(color: Colors.white, fontSize: 25),
