@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:quizzy_mind/pages/game_page.dart';
-import 'package:quizzy_mind/pages/category_page.dart';
 import 'package:quizzy_mind/pages/home_page.dart';
 
 void main() {
