@@ -27,7 +27,7 @@ class GamePageProvider extends ChangeNotifier {
       '',
       queryParameters: {
         'amount': 10,
-        'type': 'boolean',
+        'type': 'multiple',
         'difficulty': difficulityLevel,
         'category': '23',
       }, //get url attribute query
@@ -36,6 +36,7 @@ class GamePageProvider extends ChangeNotifier {
       _response.toString(),
     );
     questions = _data["results"];
+    print(_data);
     notifyListeners();
   }
 
@@ -43,11 +44,27 @@ class GamePageProvider extends ChangeNotifier {
     return questions![_currentQuestionCount]["question"];
   }
 
-  void answerQuestion(String _answer) async {
-    bool isCorrect =
-        questions![_currentQuestionCount]["correct_answer"] == _answer;
+  List<String> getAnswerChoices() {
+    List<String> choices = [];
+    if (questions != null) {
+      List<dynamic> incorrectAnswers =
+          questions![_currentQuestionCount]["incorrect_answers"];
+      String correctAnswer =
+          questions![_currentQuestionCount]["correct_answer"];
+      choices.addAll(incorrectAnswers.map((answer) => answer.toString()));
+      choices.add(correctAnswer);
+      choices.shuffle(); // Shuffle the answer choices
+    }
+    return choices;
+  }
+
+  void answerQuestion(String selectedAnswer) async {
+    String correctAnswer = questions![_currentQuestionCount]["correct_answer"];
+
+    bool isCorrect = (selectedAnswer == correctAnswer);
     _correctCount += isCorrect ? 1 : 0;
     _currentQuestionCount++;
+
     showDialog(
       context: context,
       builder: (BuildContext _context) {
@@ -60,10 +77,10 @@ class GamePageProvider extends ChangeNotifier {
         );
       },
     );
-    await Future.delayed(
-      const Duration(seconds: 1),
-    );
+
+    await Future.delayed(const Duration(seconds: 1));
     Navigator.pop(context);
+
     if (_currentQuestionCount == _maxQuestions) {
       endGame();
     } else {
@@ -71,7 +88,7 @@ class GamePageProvider extends ChangeNotifier {
     }
   }
 
-  Future<void> endGame() async {
+  void endGame() async {
     showDialog(
       context: context,
       builder: (BuildContext _context) {

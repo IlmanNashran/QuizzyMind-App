@@ -158,9 +158,13 @@ class _CategoryPageState extends State<CategoryPage> {
           MaterialPageRoute(
             builder: (BuildContext _context) {
               return GamePage(
-                  difficultyLevel:
-                      _difficultyTexts[_currentDifficultyLevel.toInt()]
-                          .toLowerCase());
+                difficultyLevel:
+                    _difficultyTexts[_currentDifficultyLevel.toInt()]
+                        .toLowerCase(),
+                categoryBackgroundColor: categoryBackgroundColor,
+                categoryImageBackground: categoryImageBackground,
+                categoryImageTitle: categoryImageTitle,
+              );
             },
           ),
         );
