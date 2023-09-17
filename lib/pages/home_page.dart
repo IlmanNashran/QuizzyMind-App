@@ -133,7 +133,7 @@ class _HomePage extends State<HomePage> {
                 context,
                 MaterialPageRoute(
                   builder: (context) => CategoryPage(
-                    category: "23",
+                    category: "18",
                     categoryImageTitle: "assets/images/Computer Quiz.png",
                     categoryImageBackground:
                         "assets/images/computer_opacity_background.png",
