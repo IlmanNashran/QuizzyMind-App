@@ -164,6 +164,7 @@ class _CategoryPageState extends State<CategoryPage> {
                 categoryBackgroundColor: categoryBackgroundColor,
                 categoryImageBackground: categoryImageBackground,
                 categoryImageTitle: categoryImageTitle,
+                category: category,
               );
             },
           ),

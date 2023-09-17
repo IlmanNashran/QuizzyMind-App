@@ -3,21 +3,49 @@ import 'package:provider/provider.dart';
 import 'package:quizzy_mind/pages/game_page_provider.dart';
 import 'package:quizzy_mind/pages/utils/animation/polar_bear_animation.dart';
 
-class GamePage extends StatelessWidget {
+class GamePage extends StatefulWidget {
   final String difficultyLevel;
-  double? _deviceHeight, _deviceWidth;
-
   final String? categoryImageTitle;
   final String? categoryImageBackground;
   final Color? categoryBackgroundColor;
+  final String? category;
 
-  GamePageProvider? _gamePageProvider;
   GamePage({
     required this.difficultyLevel,
     required this.categoryImageTitle,
     required this.categoryBackgroundColor,
     required this.categoryImageBackground,
+    required this.category,
   });
+  @override
+  State<StatefulWidget> createState() {
+    return _GamePageState();
+  }
+}
+
+class _GamePageState extends State<GamePage> {
+  double? _deviceHeight, _deviceWidth;
+  String? _selectedAnswer; // Track the selected answer
+  bool _isAnswerSelected = false; // Track whether an answer is selected
+
+  GamePageProvider? _gamePageProvider;
+
+  String? categoryImageTitle;
+  String? categoryImageBackground;
+  Color? categoryBackgroundColor;
+  String? difficultyLevel;
+  String? category;
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialize the state variables with values from the widget.
+    categoryImageTitle = widget.categoryImageTitle;
+    categoryImageBackground = widget.categoryImageBackground;
+    categoryBackgroundColor = widget.categoryBackgroundColor;
+    difficultyLevel = widget.difficultyLevel;
+    category = widget.category;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +54,8 @@ class GamePage extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (_context) => GamePageProvider(
         context: context,
-        difficulityLevel: difficultyLevel,
+        difficulityLevel: difficultyLevel!,
+        category: category,
       ),
       child: _buildUI(),
     );
@@ -99,19 +128,20 @@ class GamePage extends StatelessWidget {
       children: [
         _questionTest(),
         _answerButtons(),
+        _checkAnswerButton(),
       ],
     );
   }
 
   Widget _questionTest() {
     return Container(
-      height: _deviceHeight! * 0.30,
+      height: _deviceHeight! * 0.20,
       child: Text(
         _gamePageProvider!
             .getCurrentQuestions(), //get question from provider class
         style: const TextStyle(
             color: Color.fromARGB(255, 81, 54, 54),
-            fontSize: 25,
+            fontSize: 20,
             fontWeight: FontWeight.w900),
       ),
     );
@@ -124,7 +154,10 @@ class GamePage extends StatelessWidget {
       children: answerChoices.map((choice) {
         return MaterialButton(
           onPressed: () {
-            _gamePageProvider?.answerQuestion(choice);
+            setState(() {
+              _selectedAnswer = choice;
+              _isAnswerSelected = true; // An answer is now selected
+            });
           },
           color: Colors.blue, // Customize the button color
           minWidth: _deviceWidth!,
@@ -134,13 +167,42 @@ class GamePage extends StatelessWidget {
           ),
           child: Text(
             choice,
-            style: TextStyle(
+            style: const TextStyle(
               color: Colors.white,
               fontSize: 20,
             ),
           ),
         );
       }).toList(),
+    );
+  }
+
+  Widget _checkAnswerButton() {
+    return MaterialButton(
+      onPressed: _isAnswerSelected
+          ? () {
+              // If an answer is selected, check the answer
+              _gamePageProvider!.answerQuestion(_selectedAnswer!);
+
+              // Reset _isAnswerSelected to false
+              setState(() {
+                _isAnswerSelected = false;
+              });
+            }
+          : null, // Disable the button if no answer is selected
+      color: Colors.green, // Customize the button color
+      minWidth: _deviceWidth!,
+      height: _deviceHeight! * 0.05,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20.0),
+      ),
+      child: const Text(
+        "Check Answer",
+        style: TextStyle(
+          color: Color.fromARGB(255, 44, 23, 23),
+          fontSize: 20,
+        ),
+      ),
     );
   }
 }

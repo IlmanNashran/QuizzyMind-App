@@ -8,6 +8,7 @@ class GamePageProvider extends ChangeNotifier {
   final Dio _dio = Dio();
   final int _maxQuestions = 10;
   final String difficulityLevel;
+  final String? category;
 
   List? questions; //get query api input
   int _currentQuestionCount = 0;
@@ -15,7 +16,10 @@ class GamePageProvider extends ChangeNotifier {
 
   BuildContext context;
 
-  GamePageProvider({required this.context, required this.difficulityLevel}) {
+  GamePageProvider(
+      {required this.context,
+      required this.difficulityLevel,
+      required this.category}) {
     _dio.options.baseUrl = "https://opentdb.com/api.php";
     _getQuestionsFromApi();
   }
@@ -29,7 +33,7 @@ class GamePageProvider extends ChangeNotifier {
         'amount': 10,
         'type': 'multiple',
         'difficulty': difficulityLevel,
-        'category': '23',
+        'category': category,
       }, //get url attribute query
     );
     var _data = jsonDecode(
@@ -44,6 +48,7 @@ class GamePageProvider extends ChangeNotifier {
     return questions![_currentQuestionCount]["question"];
   }
 
+//-----------------------------------------------------------------------
   List<String> getAnswerChoices() {
     List<String> choices = [];
     if (questions != null) {
@@ -57,6 +62,8 @@ class GamePageProvider extends ChangeNotifier {
     }
     return choices;
   }
+
+//-----------------------------------------------------------------------
 
   void answerQuestion(String selectedAnswer) async {
     String correctAnswer = questions![_currentQuestionCount]["correct_answer"];
@@ -87,6 +94,8 @@ class GamePageProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
+
+//-----------------------------------------------------------------------
 
   void endGame() async {
     showDialog(
