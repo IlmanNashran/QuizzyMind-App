@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quizzy_mind/pages/utils/designs/bottom_bar_navigation.dart';
 import '../pages/utils/animation/polar_bear_animation.dart';
 import '../pages/utils/designs/card_category_design.dart';
 import 'category_page.dart';
@@ -19,6 +20,7 @@ class _HomePage extends State<HomePage> {
     _deviceWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
+      bottomNavigationBar: BottomBarNavigation(),
       body: Stack(
         children: [
           Container(

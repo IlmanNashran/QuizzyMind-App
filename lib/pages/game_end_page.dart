@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quizzy_mind/pages/utils/designs/bottom_bar_navigation.dart';
 import 'package:quizzy_mind/pages/utils/designs/card_achievement_badge.dart';
 import 'package:quizzy_mind/pages/utils/designs/card_score.dart';
 
@@ -12,6 +13,7 @@ class GameEndPage extends StatelessWidget {
     _deviceHeight = MediaQuery.of(context).size.height;
     _deviceWidth = MediaQuery.of(context).size.width;
     return Scaffold(
+      bottomNavigationBar: BottomBarNavigation(),
       body: NestedScrollView(
         headerSliverBuilder: (context, innerBoxIsScrolled) {
           return [
