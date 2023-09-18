@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
+import 'package:quizzy_mind/pages/game_end_page.dart';
 //import 'package:provider/provider.dart';
 
 class GamePageProvider extends ChangeNotifier {
@@ -15,6 +16,8 @@ class GamePageProvider extends ChangeNotifier {
   int _correctCount = 0;
 
   BuildContext context;
+
+  
 
   GamePageProvider(
       {required this.context,
@@ -45,7 +48,13 @@ class GamePageProvider extends ChangeNotifier {
   }
 
   String getCurrentQuestions() {
-    return questions![_currentQuestionCount]["question"];
+    if (questions != null &&
+        _currentQuestionCount >= 0 &&
+        _currentQuestionCount < questions!.length) {
+      return questions![_currentQuestionCount]["question"];
+    } else {
+      return "No more questions"; // Provide a default message when there are no more questions
+    }
   }
 
 //-----------------------------------------------------------------------
@@ -58,7 +67,7 @@ class GamePageProvider extends ChangeNotifier {
           questions![_currentQuestionCount]["correct_answer"];
       choices.addAll(incorrectAnswers.map((answer) => answer.toString()));
       choices.add(correctAnswer);
-      choices.shuffle(); // Shuffle the answer choices
+      // Shuffle the answer choices
     }
     return choices;
   }
@@ -72,48 +81,24 @@ class GamePageProvider extends ChangeNotifier {
     _correctCount += isCorrect ? 1 : 0;
     _currentQuestionCount++;
 
-    showDialog(
-      context: context,
-      builder: (BuildContext _context) {
-        return AlertDialog(
-          backgroundColor: isCorrect ? Colors.green : Colors.red,
-          title: Icon(
-            isCorrect ? Icons.check_circle : Icons.cancel_sharp,
-            color: Colors.white,
-          ),
-        );
-      },
-    );
-
-    await Future.delayed(const Duration(seconds: 1));
-    Navigator.pop(context);
-
     if (_currentQuestionCount == _maxQuestions) {
       endGame();
     } else {
+      // If this was the last question, go to the GameEndPage
       notifyListeners();
     }
   }
 
 //-----------------------------------------------------------------------
-
-  void endGame() async {
-    showDialog(
-      context: context,
-      builder: (BuildContext _context) {
-        return AlertDialog(
-          backgroundColor: Colors.blue,
-          title: const Text(
-            "End Game!",
-            style: TextStyle(fontSize: 25, color: Colors.white),
-          ),
-          content: Text("Score: $_correctCount/$_maxQuestions"),
-        );
-      },
+  Future<void> endGame() async {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => GameEndPage(
+          score: _correctCount.toString(), // Convert to string
+          maxQuestions: _maxQuestions.toString(), // Convert to string
+        ),
+      ),
     );
-    await Future.delayed(
-      const Duration(seconds: 3),
-    );
-    Navigator.pop(context);
   }
 }

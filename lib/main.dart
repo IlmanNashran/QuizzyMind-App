@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:quizzy_mind/pages/game_end_page.dart';
+
 import 'package:quizzy_mind/pages/home_page.dart';
 
 void main() {
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
         fontFamily: 'FeatherBold',
         useMaterial3: true,
       ),
-      home: GameEndPage(),
+      home: HomePage(),
     );
   }
 }

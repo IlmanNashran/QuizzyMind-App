@@ -33,8 +33,8 @@ class TableDesign extends StatelessWidget {
           TableRow(
             children: [
               Container(
-                padding: EdgeInsets.all(8.0), // Adjust padding as needed
-                decoration: BoxDecoration(
+                padding: const EdgeInsets.all(8.0), // Adjust padding as needed
+                decoration: const BoxDecoration(
                   color: Color.fromARGB(
                       255, 255, 255, 255), // Background color of the cell
                 ),

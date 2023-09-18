@@ -3,64 +3,62 @@ import 'package:flutter/material.dart';
 class CardAchievementBadge extends StatelessWidget {
   final String? title;
   final String? description;
-  final Color? lineColor;
   final String? image;
 
   const CardAchievementBadge({
     required this.title,
     required this.description,
     required this.image,
-    this.lineColor = const Color.fromARGB(255, 66, 64, 64),
   });
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 2.0, // Adjust the card elevation as needed
-      shape: RoundedRectangleBorder(
-        borderRadius:
-            BorderRadius.circular(10.0), // Adjust the border radius as needed
-      ),
-      child: Column(
-        children: [
-          Row(
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage(image!),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: Card(
+        elevation: 2.0, // Adjust the card elevation as needed
+        shape: RoundedRectangleBorder(
+          borderRadius:
+              BorderRadius.circular(10.0), // Adjust the border radius as needed
+        ),
+        child: Column(
+          children: [
+            Container(
+              padding: const EdgeInsets.symmetric(
+                  vertical: 7.0), // Adjust the margin as needed
+              child: Row(
+                children: [
+                  Container(
+                    width: 125,
+                    height: 100,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage(image!),
+                      ),
+                    ),
                   ),
-                ),
-              ),
-              ListTile(
-                title: Text(
-                  title!,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18.0, // Adjust the title font size as needed
+                  Container(
+                    width: 220.0,
+                    child: ListTile(
+                      contentPadding: const EdgeInsets.symmetric(
+                          vertical: 4.0), // Adjust as needed
+
+                      title: Text(
+                        title!,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize:
+                              18.0, // Adjust the title font size as needed
+                        ),
+                      ),
+                      subtitle: Text(description!),
+                    ),
                   ),
-                ),
-                subtitle: Text(description!),
-              ),
-            ],
-          ),
-          Divider(
-            height: 1.0, // Adjust the divider height as needed
-            color: lineColor, // Set the color of the horizontal line
-          ),
-          ListTile(
-            title: Text(
-              title!,
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 18.0, // Adjust the title font size as needed
+                ],
               ),
             ),
-            subtitle: Text(description!),
-          ),
-
-          // Add any additional content or widgets here
-        ],
+          ],
+        ),
       ),
     );
   }
