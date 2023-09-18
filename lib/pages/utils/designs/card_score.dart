@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 
 class CardScore extends StatelessWidget {
+  final String? score;
+  final String? maxQuestions;
+
+  const CardScore({required this.score, required this.maxQuestions});
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -39,7 +44,7 @@ class CardScore extends StatelessWidget {
             Container(
               padding: const EdgeInsets.symmetric(
                   vertical: 5.0, horizontal: 20), // Adjust the margin as needed
-              child: const Row(
+              child: Row(
                 children: [
                   Text(
                     "Correct Answer:",
@@ -49,7 +54,7 @@ class CardScore extends StatelessWidget {
                     width: 10,
                   ),
                   Text(
-                    "9/10",
+                    score!,
                     style: TextStyle(fontSize: 20),
                   ),
                 ],

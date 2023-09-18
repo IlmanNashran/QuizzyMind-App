@@ -127,7 +127,13 @@ class _GamePageState extends State<GamePage> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         _questionTest(),
+        SizedBox(
+          height: 10,
+        ),
         _answerButtons(),
+        SizedBox(
+          height: 20,
+        ),
         _checkAnswerButton(),
       ],
     );
@@ -178,24 +184,37 @@ class _GamePageState extends State<GamePage> {
   }
 
   Widget _checkAnswerButton() {
-    return MaterialButton(
-      onPressed: _isAnswerSelected
+    bool showContinueButton = _isAnswerSelected;
+
+    return ElevatedButton(
+      onPressed: showContinueButton
           ? () {
               // If an answer is selected, check the answer
               _gamePageProvider!.answerQuestion(_selectedAnswer!);
 
+              showModalBottomSheet(
+                context: context,
+                isDismissible:
+                    false, // Prevent dismissing the modal without clicking "Continue"
+                builder: (BuildContext context) {
+                  return SizedBox(
+                    height: 200,
+                    width: _deviceHeight!,
+                    child: ElevatedButton(
+                      child: const Text("Continue"),
+                      onPressed: () {
+                        Navigator.pop(context); // Close the modal
+                        // Continue to the next question
+                      },
+                    ),
+                  );
+                },
+              );
+
               // Reset _isAnswerSelected to false
-              setState(() {
-                _isAnswerSelected = false;
-              });
             }
           : null, // Disable the button if no answer is selected
-      color: Colors.green, // Customize the button color
-      minWidth: _deviceWidth!,
-      height: _deviceHeight! * 0.05,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20.0),
-      ),
+
       child: const Text(
         "Check Answer",
         style: TextStyle(

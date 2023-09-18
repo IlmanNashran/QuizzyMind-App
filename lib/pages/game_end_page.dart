@@ -8,6 +8,12 @@ import 'package:quizzy_mind/pages/utils/designs/table_design.dart';
 class GameEndPage extends StatelessWidget {
   double? _deviceHeight, _deviceWidth;
 
+  final String score;
+  final String maxQuestions;
+
+  GameEndPage({required this.score, required this.maxQuestions});
+
+
   @override
   Widget build(BuildContext context) {
     _deviceHeight = MediaQuery.of(context).size.height;
@@ -67,7 +73,7 @@ class GameEndPage extends StatelessWidget {
               ),
             ),
           ),
-          CardScore(),
+          CardScore(score:score,maxQuestions:maxQuestions),
         ],
       ),
     );
