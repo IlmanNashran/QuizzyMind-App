@@ -165,6 +165,7 @@ class _CategoryPageState extends State<CategoryPage> {
                 categoryImageBackground: categoryImageBackground,
                 categoryImageTitle: categoryImageTitle,
                 category: category,
+                //just puts :(
               );
             },
           ),

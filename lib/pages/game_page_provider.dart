@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'package:quizzy_mind/pages/game_end_page.dart';
+import 'package:quizzy_mind/pages/game_page.dart';
 //import 'package:provider/provider.dart';
 
 class GamePageProvider extends ChangeNotifier {
@@ -10,6 +11,8 @@ class GamePageProvider extends ChangeNotifier {
   final int _maxQuestions = 10;
   final String difficulityLevel;
   final String? category;
+  bool checkAnswer;
+  bool? gameEnd = true;
 
   List? questions; //get query api input
   int _currentQuestionCount = 0;
@@ -17,12 +20,12 @@ class GamePageProvider extends ChangeNotifier {
 
   BuildContext context;
 
-  
-
-  GamePageProvider(
-      {required this.context,
-      required this.difficulityLevel,
-      required this.category}) {
+  GamePageProvider({
+    required this.context,
+    required this.difficulityLevel,
+    required this.category,
+    required this.checkAnswer,
+  }) {
     _dio.options.baseUrl = "https://opentdb.com/api.php";
     _getQuestionsFromApi();
   }
@@ -53,14 +56,17 @@ class GamePageProvider extends ChangeNotifier {
         _currentQuestionCount < questions!.length) {
       return questions![_currentQuestionCount]["question"];
     } else {
-      return "No more questions"; // Provide a default message when there are no more questions
+      return gameEnd
+          .toString(); // Provide a default message when there are no more questions
     }
   }
 
 //-----------------------------------------------------------------------
   List<String> getAnswerChoices() {
     List<String> choices = [];
-    if (questions != null) {
+    if (questions != null &&
+        _currentQuestionCount >= 0 &&
+        _currentQuestionCount < questions!.length) {
       List<dynamic> incorrectAnswers =
           questions![_currentQuestionCount]["incorrect_answers"];
       String correctAnswer =
@@ -74,31 +80,19 @@ class GamePageProvider extends ChangeNotifier {
 
 //-----------------------------------------------------------------------
 
-  void answerQuestion(String selectedAnswer) async {
+  Future answerQuestion(String selectedAnswer) async {
     String correctAnswer = questions![_currentQuestionCount]["correct_answer"];
 
     bool isCorrect = (selectedAnswer == correctAnswer);
     _correctCount += isCorrect ? 1 : 0;
-    _currentQuestionCount++;
-
-    if (_currentQuestionCount == _maxQuestions) {
-      endGame();
-    } else {
-      // If this was the last question, go to the GameEndPage
+    print(checkAnswer);
+    if (checkAnswer == true) {
+      _currentQuestionCount++;
       notifyListeners();
+    } else if (_currentQuestionCount == _maxQuestions) {
+      print("dah Habisssss");
     }
   }
 
 //-----------------------------------------------------------------------
-  Future<void> endGame() async {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-        builder: (context) => GameEndPage(
-          score: _correctCount.toString(), // Convert to string
-          maxQuestions: _maxQuestions.toString(), // Convert to string
-        ),
-      ),
-    );
-  }
 }
