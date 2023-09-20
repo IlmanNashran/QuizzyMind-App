@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:quizzy_mind/pages/game_end_page.dart';
 import 'package:quizzy_mind/pages/game_page_provider.dart';
 import 'package:quizzy_mind/pages/utils/animation/polar_bear_animation.dart';
 
@@ -35,6 +36,7 @@ class _GamePageState extends State<GamePage> {
   Color? categoryBackgroundColor;
   String? difficultyLevel;
   String? category;
+  bool? checkAnswer = true;
 
   @override
   void initState() {
@@ -56,6 +58,7 @@ class _GamePageState extends State<GamePage> {
         context: context,
         difficulityLevel: difficultyLevel!,
         category: category,
+        checkAnswer: checkAnswer!,
       ),
       child: _buildUI(),
     );
@@ -128,7 +131,7 @@ class _GamePageState extends State<GamePage> {
       children: [
         _questionTest(),
         SizedBox(
-          height: 10,
+          height: 5,
         ),
         _answerButtons(),
         SizedBox(
@@ -192,6 +195,10 @@ class _GamePageState extends State<GamePage> {
               // If an answer is selected, check the answer
               _gamePageProvider!.answerQuestion(_selectedAnswer!);
 
+              setState(() {
+                _isAnswerSelected = false; // Reset selection
+              });
+
               showModalBottomSheet(
                 context: context,
                 isDismissible:
@@ -201,12 +208,26 @@ class _GamePageState extends State<GamePage> {
                     height: 200,
                     width: _deviceHeight!,
                     child: ElevatedButton(
-                      child: const Text("Continue"),
-                      onPressed: () {
-                        Navigator.pop(context); // Close the modal
-                        // Continue to the next question
-                      },
-                    ),
+                        child: const Text("Continue"),
+                        onPressed: () {
+                          String m = _gamePageProvider!
+                              .getCurrentQuestions()
+                              .toString();
+                          print(m);
+                          if (m == "true") {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => (GameEndPage(
+                                      score: "9", maxQuestions: "10"))),
+                            );
+                          } else {
+                            setState(() {
+                              checkAnswer = true;
+                            });
+                            Navigator.pop(context);
+                          }
+                        }),
                   );
                 },
               );

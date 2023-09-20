@@ -10,6 +10,7 @@ class GameEndPage extends StatelessWidget {
 
   final String score;
   final String maxQuestions;
+  
 
   GameEndPage({required this.score, required this.maxQuestions});
 
