@@ -10,9 +10,9 @@ class GamePageProvider extends ChangeNotifier {
   final Dio _dio = Dio();
   final int _maxQuestions = 10;
   final String difficulityLevel;
-  final String? category;
+  final String category;
   bool checkAnswer;
-  bool? gameEnd = true;
+  String? gameEnd = "Finish 10 Question";
 
   List? questions; //get query api input
   int _currentQuestionCount = 0;
@@ -47,6 +47,7 @@ class GamePageProvider extends ChangeNotifier {
     );
     questions = _data["results"];
     print(_data);
+    print(category);
     notifyListeners();
   }
 

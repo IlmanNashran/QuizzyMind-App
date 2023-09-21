@@ -4,6 +4,8 @@ import '../pages/utils/animation/polar_bear_animation.dart';
 import '../pages/utils/designs/card_category_design.dart';
 import 'category_page.dart';
 
+import '../pages/utils/designs/fancy_button.dart';
+
 class HomePage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -224,6 +226,13 @@ class _HomePage extends State<HomePage> {
               title: "Mathematics",
               backgroundColor: const Color.fromARGB(255, 238, 185, 61),
             ),
+          ),
+          FancyButton(
+            key: UniqueKey(),
+            child: Text("hai"),
+            size: 23,
+            color: Color(0xFFCA3034),
+            onPressed: () {},
           ),
         ],
       ),

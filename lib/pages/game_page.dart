@@ -57,7 +57,7 @@ class _GamePageState extends State<GamePage> {
       create: (_context) => GamePageProvider(
         context: context,
         difficulityLevel: difficultyLevel!,
-        category: category,
+        category: category!,
         checkAnswer: checkAnswer!,
       ),
       child: _buildUI(),
@@ -189,6 +189,7 @@ class _GamePageState extends State<GamePage> {
   Widget _checkAnswerButton() {
     bool showContinueButton = _isAnswerSelected;
 
+
     return ElevatedButton(
       onPressed: showContinueButton
           ? () {
@@ -210,11 +211,11 @@ class _GamePageState extends State<GamePage> {
                     child: ElevatedButton(
                         child: const Text("Continue"),
                         onPressed: () {
-                          String m = _gamePageProvider!
+                          String checkAnswerClick = _gamePageProvider!
                               .getCurrentQuestions()
                               .toString();
-                          print(m);
-                          if (m == "true") {
+                          print(checkAnswerClick);
+                          if (checkAnswerClick == "Finish 10 Question") {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -239,7 +240,7 @@ class _GamePageState extends State<GamePage> {
       child: const Text(
         "Check Answer",
         style: TextStyle(
-          color: Color.fromARGB(255, 44, 23, 23),
+          color: Color.fromARGB(255, 243, 10, 10),
           fontSize: 20,
         ),
       ),
