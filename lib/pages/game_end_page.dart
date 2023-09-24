@@ -10,10 +10,8 @@ class GameEndPage extends StatelessWidget {
 
   final String score;
   final String maxQuestions;
-  
 
   GameEndPage({required this.score, required this.maxQuestions});
-
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +72,7 @@ class GameEndPage extends StatelessWidget {
               ),
             ),
           ),
-          CardScore(score:score,maxQuestions:maxQuestions),
+          CardScore(score: score, maxQuestions: maxQuestions),
         ],
       ),
     );

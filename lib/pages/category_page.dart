@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quizzy_mind/pages/game_page.dart';
+import 'package:quizzy_mind/pages/utils/designs/fancy_button.dart';
 
 import '../pages/utils/animation/polar_bear_animation.dart';
 
@@ -50,7 +51,7 @@ class _CategoryPageState extends State<CategoryPage> {
       body: Stack(
         children: [
           Container(
-            height: _deviceHeight! * .40,
+            height: _deviceHeight! * .37,
             decoration: BoxDecoration(
               color: categoryBackgroundColor,
               image: DecorationImage(
@@ -71,11 +72,11 @@ class _CategoryPageState extends State<CategoryPage> {
                   PolarBearWidget(),
                   _quizTitle(),
                   const SizedBox(
-                    height: 30,
+                    height: 50,
                   ),
                   _difficultySlider(),
                   const SizedBox(
-                    height: 25,
+                    height: 60,
                   ),
                   _startGameButton(),
                 ],
@@ -151,35 +152,38 @@ class _CategoryPageState extends State<CategoryPage> {
 
   //navigate to startgame
   Widget _startGameButton() {
-    return MaterialButton(
-      onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (BuildContext _context) {
-              return GamePage(
-                difficultyLevel:
-                    _difficultyTexts[_currentDifficultyLevel.toInt()]
-                        .toLowerCase(),
-                categoryBackgroundColor: categoryBackgroundColor,
-                categoryImageBackground: categoryImageBackground,
-                categoryImageTitle: categoryImageTitle,
-                category: category,
-                //just puts :(
-              );
-            },
+    return Container(
+      width: _deviceWidth!,
+      height: _deviceHeight! * 0.07,
+      child: FancyButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (BuildContext _context) {
+                return GamePage(
+                  difficultyLevel:
+                      _difficultyTexts[_currentDifficultyLevel.toInt()]
+                          .toLowerCase(),
+                  categoryBackgroundColor: categoryBackgroundColor,
+                  categoryImageBackground: categoryImageBackground,
+                  categoryImageTitle: categoryImageTitle,
+                  category: category,
+                  //just puts :(
+                );
+              },
+            ),
+          );
+        },
+        key: UniqueKey(),
+        child: Center(
+          child: Text(
+            "start",
+            style: TextStyle(color: Colors.white, fontSize: 25),
           ),
-        );
-      },
-      color: const Color.fromARGB(255, 155, 182, 205),
-      minWidth: _deviceWidth! * 0.40,
-      height: _deviceHeight! * 0.09,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20.0), // Adjust the value as needed
-      ),
-      child: const Text(
-        "Start",
-        style: TextStyle(color: Colors.white, fontSize: 25),
+        ),
+        size: 23,
+        color: Color.fromARGB(255, 147, 162, 177),
       ),
     );
   }

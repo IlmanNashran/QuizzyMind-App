@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quizzy_mind/pages/utils/designs/bottom_bar_navigation.dart';
+import 'package:quizzy_mind/pages/utils/designs/fancy_buton_withimage.dart';
 import '../pages/utils/animation/polar_bear_animation.dart';
 import '../pages/utils/designs/card_category_design.dart';
 import 'category_page.dart';
@@ -26,7 +27,7 @@ class _HomePage extends State<HomePage> {
           Container(
             height: _deviceHeight! * .50,
             decoration: const BoxDecoration(
-              color: Color.fromRGBO(232, 239, 244, 1.000),
+              color: Color.fromRGBO(200, 205, 208, 1),
               image: DecorationImage(
                 image: AssetImage("assets/images/Blob_sharp.png"),
                 opacity: 1.8,
@@ -81,8 +82,9 @@ class _HomePage extends State<HomePage> {
         crossAxisSpacing: 20,
         children: [
           //----------------------------------------General Knowledge------------------------------
-          GestureDetector(
-            onTap: () {
+          FancyButtonWithImage(
+            key: UniqueKey(),
+            onPressed: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -90,139 +92,244 @@ class _HomePage extends State<HomePage> {
                     category: "9",
                     categoryImageTitle: "assets/images/General Quiz.png",
                     categoryImageBackground:
-                        "assets/images/General_opacity_background.png",
+                        "assets/images/General Knowledge.png",
                     categoryBackgroundColor:
                         const Color.fromARGB(255, 171, 246, 168),
                   ),
                 ),
               );
             },
-            child: CardCategoryDesign(
-              key: UniqueKey(),
-              image: "assets/images/general.png",
-              title: "General Knowledge",
-              backgroundColor: const Color.fromARGB(255, 171, 246, 168),
+            image: Image.asset('assets/images/General Knowledge.png'),
+            size: 25,
+            color: Color.fromARGB(255, 74, 174, 183),
+            child: const Text(
+              "General Knowledge",
+              style: TextStyle(color: Colors.white),
             ),
           ),
-          //--------------------------------------- History -----------------------------
-          GestureDetector(
-            onTap: () {
+          //----------------------------------------General Knowledge------------------------------
+          FancyButtonWithImage(
+            key: UniqueKey(),
+            onPressed: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => CategoryPage(
-                    category: "23",
-                    categoryImageTitle: "assets/images/History Quiz.png",
-                    categoryImageBackground:
-                        "assets/images/History_opacity_background.png",
-                    categoryBackgroundColor:
-                        const Color.fromARGB(255, 235, 243, 118),
+                    category: "9",
+                    categoryImageTitle: "assets/images/General Quiz.png",
+                    categoryImageBackground: "assets/images/History.png",
+                    categoryBackgroundColor: Color.fromARGB(255, 140, 194, 137),
                   ),
                 ),
               );
             },
-            child: CardCategoryDesign(
-              key: UniqueKey(),
-              image: "assets/images/history.png",
-              title: "History",
-              backgroundColor: const Color.fromARGB(255, 235, 243, 118),
+            image: Image.asset('assets/images/History.png'),
+            size: 25,
+            color: Color.fromARGB(255, 168, 154, 94),
+            child: Text(
+              "History",
+              style: TextStyle(color: Colors.white),
             ),
           ),
-          //--------------------------------------- Computer Science -----------------------------
-          GestureDetector(
-            onTap: () {
+          //----------------------------------------Animals------------------------------
+          FancyButtonWithImage(
+            key: UniqueKey(),
+            onPressed: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => CategoryPage(
-                    category: "18",
-                    categoryImageTitle: "assets/images/Computer Quiz.png",
-                    categoryImageBackground:
-                        "assets/images/computer_opacity_background.png",
+                    category: "27",
+                    categoryImageTitle: "assets/images/General Quiz.png",
+                    categoryImageBackground: "assets/images/Animals.png",
                     categoryBackgroundColor:
-                        const Color.fromARGB(255, 101, 140, 232),
+                        const Color.fromARGB(255, 171, 246, 168),
                   ),
                 ),
               );
             },
-            child: CardCategoryDesign(
-              key: UniqueKey(),
-              image: "assets/images/computer science.png",
-              title: "Computer Science",
-              backgroundColor: const Color.fromARGB(255, 101, 140, 232),
+            image: Image.asset('assets/images/Animals.png'),
+            size: 25,
+            color: Color.fromARGB(255, 64, 83, 162),
+            child: Text(
+              "Animals",
+              style: TextStyle(color: Colors.white),
             ),
           ),
-          //--------------------------------------- Science -----------------------------
-          GestureDetector(
-            onTap: () {
+          //----------------------------------------Mythology------------------------------
+          FancyButtonWithImage(
+            key: UniqueKey(),
+            onPressed: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => CategoryPage(
-                    category: "23",
-                    categoryImageTitle: "assets/images/SainsQuiz.png",
-                    categoryImageBackground:
-                        "assets/images/Science_Background.png",
+                    category: "20",
+                    categoryImageTitle: "assets/images/General Quiz.png",
+                    categoryImageBackground: "assets/images/Mythology.png",
                     categoryBackgroundColor:
-                        const Color.fromARGB(255, 134, 238, 234),
+                        const Color.fromARGB(255, 171, 246, 168),
                   ),
                 ),
               );
             },
-            child: CardCategoryDesign(
-              key: UniqueKey(),
-              image: "assets/images/science.png",
-              title: "Science",
-              backgroundColor: const Color.fromARGB(255, 134, 238, 234),
+            image: Image.asset('assets/images/Mythology.png'),
+            size: 25,
+            color: Color.fromARGB(255, 217, 207, 183),
+            child: Text(
+              "Mythology",
+              style: TextStyle(color: Colors.white),
             ),
           ),
-
-          //--------------------------------------- Science Gadget-----------------------------
-          GestureDetector(
-            onTap: () {
+          //----------------------------------------Music------------------------------
+          FancyButtonWithImage(
+            key: UniqueKey(),
+            onPressed: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => CategoryPage(
-                    category: "23",
-                    categoryImageTitle: "assets/images/Science Gadget Quiz.png",
-                    categoryImageBackground:
-                        "assets/images/science_gadget_opacity_background.png",
+                    category: "12",
+                    categoryImageTitle: "assets/images/General Quiz.png",
+                    categoryImageBackground: "assets/images/Music.png",
                     categoryBackgroundColor:
-                        const Color.fromARGB(255, 194, 117, 242),
+                        const Color.fromARGB(255, 171, 246, 168),
                   ),
                 ),
               );
             },
-            child: CardCategoryDesign(
-              key: UniqueKey(),
-              image: "assets/images/science gadget.png",
-              title: "Science Gadget",
-              backgroundColor: const Color.fromARGB(255, 194, 117, 242),
+            image: Image.asset('assets/images/Music.png'),
+            size: 25,
+            color: Color(0xFFF5A9AC),
+            child: Text(
+              "Music",
+              style: TextStyle(color: Colors.white),
             ),
           ),
-          //--------------------------------------- Math -----------------------------
-          GestureDetector(
-            onTap: () {
+          //----------------------------------------Science------------------------------
+          FancyButtonWithImage(
+            key: UniqueKey(),
+            onPressed: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => CategoryPage(
-                    category: "23",
-                    categoryImageTitle: "assets/images/Math Quiz.png",
+                    category: "17",
+                    categoryImageTitle: "assets/images/General Quiz.png",
                     categoryImageBackground:
-                        "assets/images/math_opacity_background.png",
+                        "assets/images/Science & Nature.png",
                     categoryBackgroundColor:
-                        const Color.fromARGB(255, 238, 185, 61),
+                        const Color.fromARGB(255, 171, 246, 168),
                   ),
                 ),
               );
             },
-            child: CardCategoryDesign(
-              key: UniqueKey(),
-              image: "assets/images/math.png",
-              title: "Mathematics",
-              backgroundColor: const Color.fromARGB(255, 238, 185, 61),
+            image: Image.asset('assets/images/Science & Nature.png'),
+            size: 25,
+            color: Color.fromARGB(255, 164, 185, 224),
+            child: Text(
+              "Science",
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+          //----------------------------------------Geography------------------------------
+          FancyButtonWithImage(
+            key: UniqueKey(),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => CategoryPage(
+                    category: "22",
+                    categoryImageTitle: "assets/images/General Quiz.png",
+                    categoryImageBackground: "assets/images/Geography.png",
+                    categoryBackgroundColor:
+                        const Color.fromARGB(255, 171, 246, 168),
+                  ),
+                ),
+              );
+            },
+            image: Image.asset('assets/images/Geography.png'),
+            size: 25,
+            color: Color.fromARGB(255, 154, 212, 164),
+            child: Text(
+              "Geography",
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+          //----------------------------------------Board Games------------------------------
+          FancyButtonWithImage(
+            key: UniqueKey(),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => CategoryPage(
+                    category: "16",
+                    categoryImageTitle: "assets/images/General Quiz.png",
+                    categoryImageBackground: "assets/images/Board Games.png",
+                    categoryBackgroundColor:
+                        const Color.fromARGB(255, 171, 246, 168),
+                  ),
+                ),
+              );
+            },
+            image: Image.asset('assets/images/Board Games.png'),
+            size: 25,
+            color: Color.fromARGB(255, 225, 200, 164),
+            child: Text(
+              "Board Games",
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+          //----------------------------------------Celebrities------------------------------
+          FancyButtonWithImage(
+            key: UniqueKey(),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => CategoryPage(
+                    category: "26",
+                    categoryImageTitle: "assets/images/General Quiz.png",
+                    categoryImageBackground: "assets/images/Celebrities.png",
+                    categoryBackgroundColor:
+                        const Color.fromARGB(255, 171, 246, 168),
+                  ),
+                ),
+              );
+            },
+            image: Image.asset('assets/images/Celebrities.png'),
+            size: 25,
+            color: Color(0xFFAF7794),
+            child: Text(
+              "Celebrities",
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+          //----------------------------------------Sports------------------------------
+          FancyButtonWithImage(
+            key: UniqueKey(),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => CategoryPage(
+                    category: "21",
+                    categoryImageTitle: "assets/images/General Quiz.png",
+                    categoryImageBackground: "assets/images/Sports.png",
+                    categoryBackgroundColor:
+                        const Color.fromARGB(255, 171, 246, 168),
+                  ),
+                ),
+              );
+            },
+            image: Image.asset('assets/images/Sports.png'),
+            size: 25,
+            color: Color.fromARGB(255, 164, 217, 224),
+            child: Text(
+              "Sports",
+              style: TextStyle(color: Colors.white),
             ),
           ),
         ],

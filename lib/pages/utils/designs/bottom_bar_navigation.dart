@@ -10,7 +10,7 @@ class BottomBarNavigation extends StatelessWidget {
       child: CurvedNavigationBar(
           height: 55,
           backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-          color: Color.fromARGB(255, 144, 193, 221),
+          color: Color.fromRGBO(200, 205, 208, 1),
           animationDuration: Duration(milliseconds: 300),
           onTap: (index) {
             Navigator.push(
@@ -22,7 +22,7 @@ class BottomBarNavigation extends StatelessWidget {
           },
           items: [
             Icon(Icons.home),
-            Icon(Icons.favorite),
+            Icon(Icons.face),
             Icon(Icons.settings),
           ]),
     );
