@@ -9,7 +9,7 @@ class PolarBearWidget extends StatelessWidget {
       child: Container(
         child: SizedBox(
           width: MediaQuery.of(context).size.width,
-          height: 200,
+          height: 180,
           child: const RiveAnimation.asset("assets/images/polar_bear.riv"),
         ),
       ),

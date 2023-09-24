@@ -1,26 +1,28 @@
 import 'package:flutter/material.dart';
 
-class FancyButton extends StatefulWidget {
+class FancyButtonWithImage extends StatefulWidget {
   final Widget child;
   final Color color;
   final Duration duration;
   final VoidCallback? onPressed;
   final double size;
+  final Widget? image;
 
-  const FancyButton({
+  const FancyButtonWithImage({
     required Key key,
     required this.child,
     required this.size,
     required this.color,
+    this.image,
     this.duration = const Duration(milliseconds: 160),
     required this.onPressed,
   }) : super(key: key);
 
   @override
-  _FancyButtonState createState() => _FancyButtonState();
+  _FancyButtonWithImageState createState() => _FancyButtonWithImageState();
 }
 
-class _FancyButtonState extends State<FancyButton>
+class _FancyButtonWithImageState extends State<FancyButtonWithImage>
     with TickerProviderStateMixin {
   AnimationController? _animationController;
   Animation<double>? _pressedAnimation;
@@ -44,7 +46,7 @@ class _FancyButtonState extends State<FancyButton>
   }
 
   @override
-  void didUpdateWidget(FancyButton oldWidget) {
+  void didUpdateWidget(FancyButtonWithImage oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.duration != widget.duration) {
       _setupAnimation();
@@ -149,10 +151,17 @@ class _FancyButtonState extends State<FancyButton>
                       Padding(
                         padding: EdgeInsets.symmetric(
                           vertical: vertPadding,
-                          horizontal: horzPadding,
+                          horizontal: 10,
                         ),
-                        child: widget.child,
-                      )
+                        child: Column(
+                          // Use Row to combine child and image horizontally
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            widget.image!,
+                            widget.child,
+                          ],
+                        ),
+                      ),
                     ],
                   ),
                 ),

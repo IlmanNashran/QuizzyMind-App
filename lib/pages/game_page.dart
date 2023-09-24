@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:quizzy_mind/pages/game_end_page.dart';
 import 'package:quizzy_mind/pages/game_page_provider.dart';
 import 'package:quizzy_mind/pages/utils/animation/polar_bear_animation.dart';
+import 'package:quizzy_mind/pages/utils/designs/fancy_button.dart';
 
 class GamePage extends StatefulWidget {
   final String difficultyLevel;
@@ -28,6 +29,7 @@ class _GamePageState extends State<GamePage> {
   double? _deviceHeight, _deviceWidth;
   String? _selectedAnswer; // Track the selected answer
   bool _isAnswerSelected = false; // Track whether an answer is selected
+  bool? isCorrect;
 
   GamePageProvider? _gamePageProvider;
 
@@ -36,7 +38,7 @@ class _GamePageState extends State<GamePage> {
   Color? categoryBackgroundColor;
   String? difficultyLevel;
   String? category;
-  bool? checkAnswer = true;
+  int allQuestionNumberCount = 1;
 
   @override
   void initState() {
@@ -58,7 +60,6 @@ class _GamePageState extends State<GamePage> {
         context: context,
         difficulityLevel: difficultyLevel!,
         category: category!,
-        checkAnswer: checkAnswer!,
       ),
       child: _buildUI(),
     );
@@ -72,29 +73,13 @@ class _GamePageState extends State<GamePage> {
           body: Stack(
             children: [
               Container(
-                height: _deviceHeight! * .346,
+                height: _deviceHeight! * .320,
                 decoration: BoxDecoration(
                   color: categoryBackgroundColor,
                   image: DecorationImage(
                     fit: BoxFit.cover,
                     image: AssetImage(categoryImageBackground!),
                     opacity: 1.8,
-                  ),
-                ),
-              ),
-              Align(
-                alignment: Alignment.topCenter,
-                child: FractionalTranslation(
-                  translation: Offset(0.0, 0.0),
-                  child: Container(
-                    height: _deviceHeight! * 0.111,
-                    width: _deviceWidth! * 0.40,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        fit: BoxFit.fill,
-                        image: AssetImage(categoryImageTitle!),
-                      ),
-                    ),
                   ),
                 ),
               ),
@@ -127,16 +112,9 @@ class _GamePageState extends State<GamePage> {
   Widget _gameUI() {
     return Column(
       mainAxisSize: MainAxisSize.max,
-      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         _questionTest(),
-        SizedBox(
-          height: 5,
-        ),
         _answerButtons(),
-        SizedBox(
-          height: 20,
-        ),
         _checkAnswerButton(),
       ],
     );
@@ -144,14 +122,33 @@ class _GamePageState extends State<GamePage> {
 
   Widget _questionTest() {
     return Container(
-      height: _deviceHeight! * 0.20,
-      child: Text(
-        _gamePageProvider!
-            .getCurrentQuestions(), //get question from provider class
-        style: const TextStyle(
-            color: Color.fromARGB(255, 81, 54, 54),
-            fontSize: 20,
-            fontWeight: FontWeight.w900),
+      height: _deviceHeight! * 0.25,
+      width: _deviceWidth!,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+              width: _deviceWidth! * 0.07,
+              child: Text(
+                allQuestionNumberCount.toString(),
+                style: const TextStyle(
+                    color: Color.fromARGB(255, 81, 54, 54),
+                    fontSize: 18,
+                    fontWeight: FontWeight.w900),
+              )),
+          Container(
+            width: _deviceWidth! * 0.73,
+            child: Text(
+              _gamePageProvider!
+                  .getCurrentQuestions(), //get question from provider class
+              style: const TextStyle(
+                  color: Color.fromARGB(255, 81, 54, 54),
+                  fontSize: 18,
+                  fontWeight: FontWeight.w900),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -159,90 +156,181 @@ class _GamePageState extends State<GamePage> {
   Widget _answerButtons() {
     List<String> answerChoices = _gamePageProvider!.getAnswerChoices();
 
-    return Column(
-      children: answerChoices.map((choice) {
-        return MaterialButton(
-          onPressed: () {
-            setState(() {
-              _selectedAnswer = choice;
-              _isAnswerSelected = true; // An answer is now selected
-            });
-          },
-          color: Colors.blue, // Customize the button color
-          minWidth: _deviceWidth!,
-          height: _deviceHeight! * 0.05,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20.0),
-          ),
-          child: Text(
-            choice,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 20,
+    return Container(
+      height: _deviceHeight! * 0.34,
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        children: List.generate(answerChoices.length, (index) {
+          final choice = answerChoices[index];
+          bool isSelected = _selectedAnswer == choice;
+
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 2.0),
+            child: MaterialButton(
+              onPressed: () {
+                setState(() {
+                  _selectedAnswer = choice;
+                  _isAnswerSelected = true; // An answer is now selected
+                });
+              },
+              color: isSelected
+                  ? const Color.fromARGB(
+                      255, 92, 116, 202) // Change color for selected button
+                  : const Color.fromARGB(255, 255, 255, 255),
+              // Default color
+              minWidth: _deviceWidth!,
+              height: _deviceHeight! * 0.06,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20.0),
+              ),
+              child: Center(
+                child: Text(
+                  choice,
+                  style: TextStyle(
+                    color: isSelected
+                        ? Colors.white // Change text color for selected button
+                        : const Color.fromARGB(
+                            255, 122, 118, 118), // Default text color
+                    fontSize: 17,
+                  ),
+                ),
+              ),
             ),
-          ),
-        );
-      }).toList(),
+          );
+        }),
+      ),
     );
   }
 
   Widget _checkAnswerButton() {
-    bool showContinueButton = _isAnswerSelected;
+    bool answerSelected = _isAnswerSelected;
+    String correctionAnswer = ""; //show user the correct answer
 
+    return Container(
+      height: _deviceHeight! * 0.061,
+      width: _deviceWidth!,
+      child: FancyButton(
+        key: UniqueKey(),
 
-    return ElevatedButton(
-      onPressed: showContinueButton
-          ? () {
-              // If an answer is selected, check the answer
-              _gamePageProvider!.answerQuestion(_selectedAnswer!);
+        onPressed: answerSelected
+            ? () {
+                // If an answer is selected, check the answer
+                _gamePageProvider!.answerQuestion(_selectedAnswer!);
+                isCorrect = _gamePageProvider!.isCorrect;
+                correctionAnswer = _gamePageProvider!.correctionAnswer;
 
-              setState(() {
-                _isAnswerSelected = false; // Reset selection
-              });
+                setState(() {
+                  _isAnswerSelected = false; // Reset selection
+                });
 
-              showModalBottomSheet(
-                context: context,
-                isDismissible:
-                    false, // Prevent dismissing the modal without clicking "Continue"
-                builder: (BuildContext context) {
-                  return SizedBox(
-                    height: 200,
-                    width: _deviceHeight!,
-                    child: ElevatedButton(
-                        child: const Text("Continue"),
-                        onPressed: () {
-                          String checkAnswerClick = _gamePageProvider!
-                              .getCurrentQuestions()
-                              .toString();
-                          print(checkAnswerClick);
-                          if (checkAnswerClick == "Finish 10 Question") {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => (GameEndPage(
-                                      score: "9", maxQuestions: "10"))),
-                            );
-                          } else {
-                            setState(() {
-                              checkAnswer = true;
-                            });
-                            Navigator.pop(context);
-                          }
-                        }),
-                  );
-                },
-              );
+                showModalBottomSheet(
+                  context: context,
+                  isDismissible:
+                      false, // Prevent dismissing the modal without clicking "Continue"
+                  builder: (BuildContext context) {
+                    return Container(
+                      height: 200,
+                      width: _deviceHeight!,
+                      color: isCorrect == true
+                          ? const Color.fromARGB(255, 162, 254, 165)
+                          : Colors.red[100],
+                      child: Column(
+                        children: [
+                          Container(
+                            height: _deviceHeight! * 0.20,
+                            width: _deviceWidth!,
+                            child: Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: isCorrect == true
+                                  ? const Text(
+                                      "Good Job",
+                                      style: TextStyle(
+                                        fontSize: 27,
+                                        color: Color.fromARGB(255, 43, 190, 65),
+                                      ),
+                                    )
+                                  : Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        const Text(
+                                          "Correct Answer:",
+                                          style: TextStyle(
+                                            fontSize: 27,
+                                            color: Colors.red,
+                                          ),
+                                        ),
+                                        Text(
+                                          correctionAnswer,
+                                          style: const TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.normal,
+                                            color: Color.fromARGB(
+                                                255, 163, 44, 36),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 45),
+                            child: Container(
+                              width: _deviceWidth! * 30,
+                              child: FancyButton(
+                                key: UniqueKey(),
+                                size: 40,
+                                color: isCorrect == true
+                                    ? Colors.green
+                                    : Colors.red,
+                                child: const Center(
+                                  child: Text(
+                                    "Continue",
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                ),
+                                onPressed: allQuestionNumberCount < 10
+                                    ? () {
+                                        _gamePageProvider!.getNewQuestions();
+                                        allQuestionNumberCount++;
+                                        Navigator.pop(context);
+                                      }
+                                    : () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    GameEndPage(
+                                                        score:
+                                                            _gamePageProvider!
+                                                                .correctCount
+                                                                .toString(),
+                                                        maxQuestions: "10")));
+                                      },
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                );
+              }
+            : null,
 
-              // Reset _isAnswerSelected to false
-            }
-          : null, // Disable the button if no answer is selected
-
-      child: const Text(
-        "Check Answer",
-        style: TextStyle(
-          color: Color.fromARGB(255, 243, 10, 10),
-          fontSize: 20,
-        ),
+        size: 40,
+        color: answerSelected
+            ? const Color.fromARGB(255, 69, 234, 36)
+            : Colors.white,
+        child: Center(
+          child: Text(
+            "Check Answer",
+            style: TextStyle(
+                color: answerSelected
+                    ? Colors.white
+                    : const Color.fromARGB(255, 114, 112, 112)),
+          ),
+        ), // Disable the button if no answer is selected
       ),
     );
   }

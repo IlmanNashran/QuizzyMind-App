@@ -51,7 +51,7 @@ class _CategoryPageState extends State<CategoryPage> {
       body: Stack(
         children: [
           Container(
-            height: _deviceHeight! * .40,
+            height: _deviceHeight! * .37,
             decoration: BoxDecoration(
               color: categoryBackgroundColor,
               image: DecorationImage(
@@ -76,7 +76,7 @@ class _CategoryPageState extends State<CategoryPage> {
                   ),
                   _difficultySlider(),
                   const SizedBox(
-                    height: 80,
+                    height: 60,
                   ),
                   _startGameButton(),
                 ],
