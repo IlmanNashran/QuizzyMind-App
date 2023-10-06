@@ -3,8 +3,12 @@ import 'package:flutter/material.dart';
 class CardScore extends StatelessWidget {
   final String? score;
   final String? maxQuestions;
+  final String? difficulityLevel;
 
-  const CardScore({required this.score, required this.maxQuestions});
+  const CardScore(
+      {required this.score,
+      required this.maxQuestions,
+      required this.difficulityLevel});
 
   @override
   Widget build(BuildContext context) {
@@ -25,17 +29,17 @@ class CardScore extends StatelessWidget {
               padding: const EdgeInsets.symmetric(
                   vertical: 10.0,
                   horizontal: 20), // Adjust the margin as needed
-              child: const Row(
+              child: Row(
                 children: [
                   Text(
-                    "Quiz Category:",
+                    "Quiz Difficulty:",
                     style: TextStyle(fontSize: 20),
                   ),
                   SizedBox(
                     width: 10,
                   ),
                   Text(
-                    "History",
+                    difficulityLevel!,
                     style: TextStyle(fontSize: 20),
                   ),
                 ],
@@ -54,7 +58,7 @@ class CardScore extends StatelessWidget {
                     width: 10,
                   ),
                   Text(
-                    score!,
+                    "$score/10",
                     style: TextStyle(fontSize: 20),
                   ),
                 ],
@@ -63,7 +67,7 @@ class CardScore extends StatelessWidget {
             Container(
               padding: const EdgeInsets.symmetric(
                   vertical: 5.0, horizontal: 20), // Adjust the margin as needed
-              child: const Row(
+              child: Row(
                 children: [
                   Text(
                     "Score:",
@@ -73,7 +77,7 @@ class CardScore extends StatelessWidget {
                     width: 10,
                   ),
                   Text(
-                    " 90%",
+                    "$score 0%",
                     style: TextStyle(fontSize: 20),
                   ),
                 ],

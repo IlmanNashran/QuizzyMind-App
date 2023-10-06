@@ -1,24 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:quizzy_mind/pages/utils/designs/bottom_bar_navigation.dart';
+import 'package:quizzy_mind/pages/home_page.dart';
 import 'package:quizzy_mind/pages/utils/designs/card_achievement_badge.dart';
 import 'package:quizzy_mind/pages/utils/designs/card_score.dart';
-
-import 'package:quizzy_mind/pages/utils/designs/table_design.dart';
 
 class GameEndPage extends StatelessWidget {
   double? _deviceHeight, _deviceWidth;
 
   final String score;
   final String maxQuestions;
+  final String difficulityLevel;
 
-  GameEndPage({required this.score, required this.maxQuestions});
+  GameEndPage(
+      {required this.score,
+      required this.maxQuestions,
+      required this.difficulityLevel});
 
   @override
   Widget build(BuildContext context) {
     _deviceHeight = MediaQuery.of(context).size.height;
     _deviceWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      bottomNavigationBar: BottomBarNavigation(),
       body: NestedScrollView(
         headerSliverBuilder: (context, innerBoxIsScrolled) {
           return [
@@ -31,6 +32,19 @@ class GameEndPage extends StatelessWidget {
                   "assets/images/trophy.gif",
                   fit: BoxFit.cover,
                 ),
+              ),
+              leading: IconButton(
+                icon: Icon(Icons.close),
+                color: Colors.white,
+                iconSize: 50, // Change to 'Icons.close' for 'x' symbol
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => HomePage(),
+                    ),
+                  );
+                },
               ),
             ),
           ];
@@ -72,7 +86,10 @@ class GameEndPage extends StatelessWidget {
               ),
             ),
           ),
-          CardScore(score: score, maxQuestions: maxQuestions),
+          CardScore(
+              score: score,
+              maxQuestions: maxQuestions,
+              difficulityLevel: difficulityLevel),
         ],
       ),
     );
@@ -96,26 +113,20 @@ class GameEndPage extends StatelessWidget {
           ),
           CardAchievementBadge(
             image: 'assets/images/trophy_badge.png',
-            title: 'Achievement Title',
-            description: 'Description of the achievement goes here.',
+            title: 'First Win',
+            description: 'Win by finish the game.',
             // You can specify a different line color if needed
           ),
           CardAchievementBadge(
             image: 'assets/images/fire_badge.png',
-            title: 'Achievement Title',
-            description: 'Description of the achievement goes here.',
+            title: 'On Fire',
+            description: 'Finish all Quiz.',
             // You can specify a different line color if needed
           ),
           CardAchievementBadge(
             image: 'assets/images/mantul_badge.png',
-            title: 'Achievement Title',
-            description: 'Description of the achievement goes here.',
-            // You can specify a different line color if needed
-          ),
-          CardAchievementBadge(
-            image: 'assets/images/wazai_badge.png',
-            title: 'Achievement Title',
-            description: 'Description of the achievement goes here.',
+            title: 'Cool Guy',
+            description: ' Achievement goes to Cool Guy.',
             // You can specify a different line color if needed
           ),
         ],
