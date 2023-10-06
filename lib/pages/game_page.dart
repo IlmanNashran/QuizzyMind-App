@@ -4,6 +4,7 @@ import 'package:quizzy_mind/pages/game_end_page.dart';
 import 'package:quizzy_mind/pages/game_page_provider.dart';
 import 'package:quizzy_mind/pages/utils/animation/polar_bear_animation.dart';
 import 'package:quizzy_mind/pages/utils/designs/fancy_button.dart';
+import 'package:lottie/lottie.dart';
 
 class GamePage extends StatefulWidget {
   final String difficultyLevel;
@@ -70,6 +71,7 @@ class _GamePageState extends State<GamePage> {
       _gamePageProvider = _context.watch<GamePageProvider>();
       if (_gamePageProvider!.questions != null) {
         return Scaffold(
+          backgroundColor: Colors.white,
           body: Stack(
             children: [
               Container(
@@ -100,9 +102,32 @@ class _GamePageState extends State<GamePage> {
           ),
         );
       } else {
-        return const Center(
-          child: CircularProgressIndicator(
-            color: Colors.white,
+        return Scaffold(
+          backgroundColor: Colors
+              .white, // Set the background color of the entire page to white
+          body: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Lottie.asset(
+                  'assets/animation/hamster.json', // Replace with the path to your Lottie animation file
+                  width: 100,
+                  height: 100,
+                ),
+                SizedBox(
+                    height:
+                        16), // Adjust the spacing between animation and text as needed
+                Text(
+                  'Loading...', // Your loading text
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Colors
+                        .black, // Set the text color to black or any other color you prefer
+                  ),
+                ),
+              ],
+            ),
           ),
         );
       }
@@ -299,13 +324,15 @@ class _GamePageState extends State<GamePage> {
                                         Navigator.push(
                                             context,
                                             MaterialPageRoute(
-                                                builder: (context) =>
-                                                    GameEndPage(
-                                                        score:
-                                                            _gamePageProvider!
-                                                                .correctCount
-                                                                .toString(),
-                                                        maxQuestions: "10")));
+                                              builder: (context) => GameEndPage(
+                                                score: _gamePageProvider!
+                                                    .correctCount
+                                                    .toString(),
+                                                maxQuestions: "10",
+                                                difficulityLevel:
+                                                    difficultyLevel!,
+                                              ),
+                                            ));
                                       },
                               ),
                             ),

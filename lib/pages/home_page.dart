@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:quizzy_mind/pages/utils/designs/bottom_bar_navigation.dart';
 import 'package:quizzy_mind/pages/utils/designs/fancy_buton_withimage.dart';
 import '../pages/utils/animation/polar_bear_animation.dart';
-import '../pages/utils/designs/card_category_design.dart';
 import 'category_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -15,13 +13,14 @@ class HomePage extends StatefulWidget {
 class _HomePage extends State<HomePage> {
   double? _deviceHeight, _deviceWidth;
 
+  ScrollController _scrollController = ScrollController();
+
   @override
   Widget build(BuildContext context) {
     _deviceHeight = MediaQuery.of(context).size.height;
     _deviceWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      bottomNavigationBar: BottomBarNavigation(),
       body: Stack(
         children: [
           Container(
@@ -76,6 +75,7 @@ class _HomePage extends State<HomePage> {
   Widget _quizCategory() {
     return Expanded(
       child: GridView.count(
+        controller: _scrollController,
         crossAxisCount: 2,
         childAspectRatio: .85,
         mainAxisSpacing: 20,
@@ -94,7 +94,7 @@ class _HomePage extends State<HomePage> {
                     categoryImageBackground:
                         "assets/images/General Knowledge.png",
                     categoryBackgroundColor:
-                        const Color.fromARGB(255, 171, 246, 168),
+                        const Color.fromARGB(255, 74, 174, 183),
                   ),
                 ),
               );
@@ -107,7 +107,7 @@ class _HomePage extends State<HomePage> {
               style: TextStyle(color: Colors.white),
             ),
           ),
-          //----------------------------------------General Knowledge------------------------------
+          //----------------------------------------History------------------------------
           FancyButtonWithImage(
             key: UniqueKey(),
             onPressed: () {
@@ -116,9 +116,9 @@ class _HomePage extends State<HomePage> {
                 MaterialPageRoute(
                   builder: (context) => CategoryPage(
                     category: "9",
-                    categoryImageTitle: "assets/images/General Quiz.png",
+                    categoryImageTitle: "assets/images/History Quiz.png",
                     categoryImageBackground: "assets/images/History.png",
-                    categoryBackgroundColor: Color.fromARGB(255, 140, 194, 137),
+                    categoryBackgroundColor: Color.fromARGB(255, 168, 154, 94),
                   ),
                 ),
               );
@@ -140,10 +140,10 @@ class _HomePage extends State<HomePage> {
                 MaterialPageRoute(
                   builder: (context) => CategoryPage(
                     category: "27",
-                    categoryImageTitle: "assets/images/General Quiz.png",
+                    categoryImageTitle: "assets/images/Animal Quiz.png",
                     categoryImageBackground: "assets/images/Animals.png",
                     categoryBackgroundColor:
-                        const Color.fromARGB(255, 171, 246, 168),
+                        const Color.fromARGB(255, 64, 83, 162),
                   ),
                 ),
               );
@@ -165,10 +165,10 @@ class _HomePage extends State<HomePage> {
                 MaterialPageRoute(
                   builder: (context) => CategoryPage(
                     category: "20",
-                    categoryImageTitle: "assets/images/General Quiz.png",
+                    categoryImageTitle: "assets/images/Myth.png",
                     categoryImageBackground: "assets/images/Mythology.png",
                     categoryBackgroundColor:
-                        const Color.fromARGB(255, 171, 246, 168),
+                        const Color.fromARGB(255, 217, 207, 183),
                   ),
                 ),
               );
@@ -190,10 +190,9 @@ class _HomePage extends State<HomePage> {
                 MaterialPageRoute(
                   builder: (context) => CategoryPage(
                     category: "12",
-                    categoryImageTitle: "assets/images/General Quiz.png",
+                    categoryImageTitle: "assets/images/Music Quiz.png",
                     categoryImageBackground: "assets/images/Music.png",
-                    categoryBackgroundColor:
-                        const Color.fromARGB(255, 171, 246, 168),
+                    categoryBackgroundColor: const Color(0xFFF5A9AC),
                   ),
                 ),
               );
@@ -215,11 +214,11 @@ class _HomePage extends State<HomePage> {
                 MaterialPageRoute(
                   builder: (context) => CategoryPage(
                     category: "17",
-                    categoryImageTitle: "assets/images/General Quiz.png",
+                    categoryImageTitle: "assets/images/sains.png",
                     categoryImageBackground:
                         "assets/images/Science & Nature.png",
                     categoryBackgroundColor:
-                        const Color.fromARGB(255, 171, 246, 168),
+                        const Color.fromARGB(255, 164, 185, 224),
                   ),
                 ),
               );
@@ -241,10 +240,10 @@ class _HomePage extends State<HomePage> {
                 MaterialPageRoute(
                   builder: (context) => CategoryPage(
                     category: "22",
-                    categoryImageTitle: "assets/images/General Quiz.png",
+                    categoryImageTitle: "assets/images/Geo.png",
                     categoryImageBackground: "assets/images/Geography.png",
                     categoryBackgroundColor:
-                        const Color.fromARGB(255, 171, 246, 168),
+                        const Color.fromARGB(255, 154, 212, 164),
                   ),
                 ),
               );
@@ -266,10 +265,10 @@ class _HomePage extends State<HomePage> {
                 MaterialPageRoute(
                   builder: (context) => CategoryPage(
                     category: "16",
-                    categoryImageTitle: "assets/images/General Quiz.png",
+                    categoryImageTitle: "assets/images/Board Game Quiz.png",
                     categoryImageBackground: "assets/images/Board Games.png",
                     categoryBackgroundColor:
-                        const Color.fromARGB(255, 171, 246, 168),
+                        const Color.fromARGB(255, 225, 200, 164),
                   ),
                 ),
               );
@@ -291,10 +290,9 @@ class _HomePage extends State<HomePage> {
                 MaterialPageRoute(
                   builder: (context) => CategoryPage(
                     category: "26",
-                    categoryImageTitle: "assets/images/General Quiz.png",
+                    categoryImageTitle: "assets/images/Celebrities Quiz.png",
                     categoryImageBackground: "assets/images/Celebrities.png",
-                    categoryBackgroundColor:
-                        const Color.fromARGB(255, 171, 246, 168),
+                    categoryBackgroundColor: const Color(0xFFAF7794),
                   ),
                 ),
               );
@@ -316,10 +314,10 @@ class _HomePage extends State<HomePage> {
                 MaterialPageRoute(
                   builder: (context) => CategoryPage(
                     category: "21",
-                    categoryImageTitle: "assets/images/General Quiz.png",
+                    categoryImageTitle: "assets/images/Sports Quiz.png",
                     categoryImageBackground: "assets/images/Sports.png",
                     categoryBackgroundColor:
-                        const Color.fromARGB(255, 171, 246, 168),
+                        const Color.fromARGB(255, 164, 217, 224),
                   ),
                 ),
               );
